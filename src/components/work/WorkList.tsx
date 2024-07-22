@@ -1,10 +1,15 @@
 "use client";
-import React, { useEffect } from "react";
-import { TodoCard } from "../todo/TodoCard";
-import { Todo, useTodosStore } from "@/app/_store/store";
-import { priorityOrder } from "@/app/page";
-import { useHydrateStore } from "@/app/_store/useHydrateStore";
+import { useTodosStore } from "@/app/_store/store";
 import NoTodos from "../generic/no-todos";
+import { TodoCard } from "../todo/TodoCard";
+
+// Define your priority order
+export const priorityOrder: Record<string, number> = {
+  low: 1,
+  normal: 2,
+  high: 3,
+  urgent: 4,
+};
 
 const WorkList = () => {
   // useHydrateStore();

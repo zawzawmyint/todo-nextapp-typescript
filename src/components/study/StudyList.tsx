@@ -2,9 +2,9 @@
 import React from "react";
 import { TodoCard } from "../todo/TodoCard";
 import { useTodosStore } from "@/app/_store/store";
-import { priorityOrder } from "@/app/page";
 import { useHydrateStore } from "@/app/_store/useHydrateStore";
 import NoTodos from "../generic/no-todos";
+import { priorityOrder } from "../work/WorkList";
 
 const StudyList = () => {
   // useHydrateStore();
