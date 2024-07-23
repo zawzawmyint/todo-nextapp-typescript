@@ -7,12 +7,16 @@ import { useInitializeTodos } from "@/app/hooks/useInitializeTodos";
 
 const EntertainmentList = () => {
   useInitializeTodos();
-  const { todos } = useTodosStore((state) => state);
+  const { todos, isHiddenDone } = useTodosStore((state) => state);
 
   // Filter todos by type and sort by priority
-  const formattedTodos = todos
-    .filter((todo) => todo.type === "entertainment") // Filter by type
-    .sort((a, b) => priorityOrder[b.priority] - priorityOrder[a.priority]); // Sort by priority
+  const formattedTodos = !isHiddenDone
+    ? todos
+        .filter((todo) => todo.type === "entertainment") // Filter by type
+        .sort((a, b) => priorityOrder[b.priority] - priorityOrder[a.priority])
+    : todos
+        .filter((todo) => todo.type === "entertainment" && todo.done === false) // Filter by type
+        .sort((a, b) => priorityOrder[b.priority] - priorityOrder[a.priority]); // Sort by priority
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 p-2">

@@ -4,6 +4,7 @@ import React from "react";
 
 import { useTodosStore } from "@/app/_store/store";
 import { useInitializeTodos } from "@/app/hooks/useInitializeTodos";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -42,11 +43,25 @@ const linkItems = [
 ];
 
 const Sidebar = () => {
+  const { isHiddenDone, toggleVisibility } = useTodosStore((state) => state);
   return (
-    <div className=" w-full sm:basis-80 flex flex-wrap gap-1 flex-row sm:flex-col max-h-56 sticky top-16 sm:top-20 bg-white">
+    <div className=" w-full sm:basis-80 flex flex-wrap gap-1 flex-row sm:flex-col max-h-72 sticky top-16 sm:top-20 bg-white z-40">
       {linkItems.map((item, index) => (
         <SidebarItem key={index} item={item} />
       ))}
+      <div className="flex items-center space-x-2 mt-2 sm:mt-8 p-2">
+        <Checkbox
+          id={"isvisible"}
+          checked={isHiddenDone || false} // Ensure controlled component
+          onCheckedChange={toggleVisibility} // Use onCheckedChange
+        />
+        <label
+          htmlFor={"isvisible"}
+          className="text-md font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+        >
+          Hide done cards
+        </label>
+      </div>
     </div>
   );
 };
@@ -66,12 +81,23 @@ const SidebarItem = ({ item }: SidebarItemProps) => {
   useInitializeTodos();
   const pathname = usePathname();
 
-  const todos = useTodosStore((state) => state.todos);
+  const { todos, isHiddenDone } = useTodosStore((state) => state);
 
-  const workTotal = todos.filter((todo) => todo.type === "work");
-  const studyTotal = todos.filter((todo) => todo.type === "study");
-  const entertainTotal = todos.filter((todo) => todo.type === "entertainment");
-  const familyTotal = todos.filter((todo) => todo.type === "family");
+  // calculate total count by type and done
+  const workTotal = !isHiddenDone
+    ? todos.filter((todo) => todo.type === "work")
+    : todos.filter((todo) => todo.type === "work" && todo.done === false);
+  const studyTotal = !isHiddenDone
+    ? todos.filter((todo) => todo.type === "study")
+    : todos.filter((todo) => todo.type === "study" && todo.done === false);
+  const entertainTotal = !isHiddenDone
+    ? todos.filter((todo) => todo.type === "entertainment")
+    : todos.filter(
+        (todo) => todo.type === "entertainment" && todo.done === false
+      );
+  const familyTotal = !isHiddenDone
+    ? todos.filter((todo) => todo.type === "family")
+    : todos.filter((todo) => todo.type === "family" && todo.done === false);
 
   const formattedItem = {
     ...item,
