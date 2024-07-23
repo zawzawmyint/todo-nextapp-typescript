@@ -1,5 +1,6 @@
 "use client";
 import { useTodosStore } from "@/app/_store/store";
+import { useInitializeTodos } from "@/app/hooks/useInitializeTodos";
 import NoTodos from "../generic/no-todos";
 import { TodoCard } from "../todo/TodoCard";
 
@@ -12,7 +13,7 @@ export const priorityOrder: Record<string, number> = {
 };
 
 const WorkList = () => {
-  // useHydrateStore();
+  useInitializeTodos();
 
   const todos = useTodosStore((state) => state.todos);
 

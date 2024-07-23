@@ -2,6 +2,8 @@
 import Link from "next/link";
 import React from "react";
 
+import { useTodosStore } from "@/app/_store/store";
+import { useInitializeTodos } from "@/app/hooks/useInitializeTodos";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -9,16 +11,8 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import {
-  BookAIcon,
-  Group,
-  PenIcon,
-  PlayCircleIcon,
-  WorkflowIcon,
-} from "lucide-react";
+import { BookAIcon, Group, PlayCircleIcon, WorkflowIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useTodosStore } from "@/app/_store/store";
-import Image from "next/image";
 
 const linkItems = [
   {
@@ -69,6 +63,7 @@ interface SidebarItemProps {
 }
 
 const SidebarItem = ({ item }: SidebarItemProps) => {
+  useInitializeTodos();
   const pathname = usePathname();
 
   const todos = useTodosStore((state) => state.todos);

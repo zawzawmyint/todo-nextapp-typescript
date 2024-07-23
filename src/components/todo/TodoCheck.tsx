@@ -3,8 +3,10 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { TodoFormProps } from "./form/TodoForm";
 import { Todo, useTodosStore } from "@/app/_store/store";
+import { useInitializeTodos } from "@/app/hooks/useInitializeTodos";
 
 export function TodoCheck({ item }: TodoFormProps) {
+  useInitializeTodos();
   const { updateTodo } = useTodosStore((state) => state);
 
   const handleCheckedChange = (checked: boolean) => {

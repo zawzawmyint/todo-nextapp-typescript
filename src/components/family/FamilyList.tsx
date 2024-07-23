@@ -3,9 +3,10 @@ import { useTodosStore } from "@/app/_store/store";
 import NoTodos from "../generic/no-todos";
 import { TodoCard } from "../todo/TodoCard";
 import { priorityOrder } from "../work/WorkList";
+import { useInitializeTodos } from "@/app/hooks/useInitializeTodos";
 
 const FamilyList = () => {
-  // useHydrateStore();
+  useInitializeTodos();
   const { todos } = useTodosStore((state) => state);
 
   // Filter todos by type and sort by priority

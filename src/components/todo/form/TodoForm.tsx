@@ -27,6 +27,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useToast } from "@/components/ui/use-toast";
+import { useInitializeTodos } from "@/app/hooks/useInitializeTodos";
 
 const formSchema = z.object({
   id: z.number().optional(),
@@ -57,6 +58,7 @@ export interface TodoFormProps {
 }
 
 const TodoForm = ({ item }: TodoFormProps) => {
+  useInitializeTodos();
   const { addTodo, updateTodo } = useTodosStore((state) => state);
   const { toast } = useToast();
   // Define your form.

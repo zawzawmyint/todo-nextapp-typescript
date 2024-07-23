@@ -1,13 +1,12 @@
 "use client";
-import React from "react";
-import { TodoCard } from "../todo/TodoCard";
 import { useTodosStore } from "@/app/_store/store";
-import { useHydrateStore } from "@/app/_store/useHydrateStore";
+import { useInitializeTodos } from "@/app/hooks/useInitializeTodos";
 import NoTodos from "../generic/no-todos";
+import { TodoCard } from "../todo/TodoCard";
 import { priorityOrder } from "../work/WorkList";
 
 const StudyList = () => {
-  // useHydrateStore();
+  useInitializeTodos();
   const { todos } = useTodosStore((state) => state);
 
   // Filter todos by type and sort by priority

@@ -1,9 +1,11 @@
 "use client";
 import { useTodosStore } from "@/app/_store/store";
+import { useInitializeTodos } from "@/app/hooks/useInitializeTodos";
 import { TodoAdd } from "@/components/todo/add/TodoAdd";
 import Link from "next/link";
 
 const Header = () => {
+  useInitializeTodos();
   const todos = useTodosStore((state) => state.todos);
   return (
     <div className="sticky top-0 left-0 z-40">
